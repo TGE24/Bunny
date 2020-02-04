@@ -1,6 +1,8 @@
 import User from "../models/userModel";
+import Appointment from "../models/appointment";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import QRCode from "qrcode";
 import { roles } from "../helpers/roles";
 
 async function hashPassword(password) {
@@ -13,12 +15,131 @@ async function validatePassword(plainPassword, hashedPassword) {
 
 exports.signup = async (req, res, next) => {
   try {
-    const { email, password, role } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      dob,
+      gender,
+      address,
+      password
+    } = req.body;
     const hashedPassword = await hashPassword(password);
     const newUser = new User({
+      name,
       email,
+      phone,
+      dob,
+      gender,
+      address,
       password: hashedPassword,
-      role: role || "patient"
+      role: "patient"
+    });
+    const generateQR = async text => {
+      try {
+        const code = await QRCode.toDataURL(text);
+        return code;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const id = newUser._id;
+
+    const code = await generateQR(
+      "http://localhost:3000/doctor/patient/" + id
+    );
+
+    newUser.code = code;
+
+    const accessToken = jwt.sign(
+      { userId: newUser._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d"
+      }
+    );
+
+    newUser.accessToken = accessToken;
+    await newUser.save();
+    req.session.token = accessToken;
+    req.session.user = newUser;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addAppointment = async (req, res, next) => {
+  try {
+    const {
+      patientId,
+      doctorId,
+      date,
+      time,
+      problem,
+      department,
+      status,
+      token
+    } = req.body;
+    const newAppointment = new Appointment({
+      patientId,
+      doctorId,
+      date,
+      time,
+      problem,
+      department,
+      status,
+      token
+    });
+    await newAppointment.save();
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getAppointments = async (req, res, next) => {
+  try {
+    const appointments = await Appointment.find({});
+    if (!appointments) return next(new Error("No Appointment found"));
+    res.locals.appointments = appointments;
+    console.log(appointments);
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addDoctor = async (req, res, next) => {
+  try {
+    const {
+      name,
+      email,
+      password,
+      dob,
+      phone,
+      specialization,
+      experience,
+      age,
+      gender,
+      details
+    } = req.body;
+    const hashedPassword = await hashPassword(password);
+    const newUser = new User({
+      name,
+      email,
+      dob,
+      phone,
+      specialization,
+      experience,
+      age,
+      gender,
+      details,
+      password: hashedPassword,
+      role: "doctor"
     });
     const accessToken = jwt.sign(
       { userId: newUser._id },
@@ -29,10 +150,8 @@ exports.signup = async (req, res, next) => {
     );
     newUser.accessToken = accessToken;
     await newUser.save();
-    res.json({
-      data: newUser,
-      accessToken
-    });
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }
@@ -66,21 +185,40 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.getUsers = async (req, res, next) => {
-  const users = await User.find({});
-  res.status(200).json({
-    data: users
-  });
+exports.getDoctors = async (req, res, next) => {
+  try {
+    const role = { role: "doctor" };
+    const users = await User.find(role);
+    if (!users) return next(new Error("No doctor found"));
+    res.locals.doctors = users;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPatients = async (req, res, next) => {
+  try {
+    const role = { role: "patient" };
+    const users = await User.find(role);
+    if (!users) return next(new Error("No Patient found"));
+    res.locals.patients = users;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.getUser = async (req, res, next) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.params.id;
     const user = await User.findById(userId);
     if (!user) return next(new Error("User does not exist"));
-    res.status(200).json({
-      data: user
-    });
+    res.locals.patient = user;
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }

@@ -1,0 +1,50 @@
+<!-- Sidebar -->
+<nav id="sidebar" class="proclinic-bg">
+  <div class="sidebar-header">
+    <a href="index.html"
+      ><img src="/images/logo.png" class="logo" alt="logo"
+    /></a>
+  </div>
+  <ul class="list-unstyled components">
+    <li class="active">
+      <a href="/admin" aria-expanded="true">
+        <span class="ti-home"></span> Dashboard
+      </a>
+    </li>
+    <li>
+      <a
+        href="#nav-patients"
+        data-toggle="collapse"
+        aria-expanded="false"
+      >
+        <span class="ti-wheelchair"></span> Patients
+      </a>
+      <ul class="collapse list-unstyled" id="nav-patients">
+        <li>
+          <a href="/admin/add-patient">Add Patient</a>
+        </li>
+        <li>
+          <a href="/admin/patients">All Patients</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a
+        href="#nav-doctors"
+        data-toggle="collapse"
+        aria-expanded="false"
+      >
+        <span class="ti-user"></span> Doctors
+      </a>
+      <ul class="collapse list-unstyled" id="nav-doctors">
+        <li>
+          <a href="/admin/add-doctor">Add Doctor</a>
+        </li>
+        <li>
+          <a href="/admin/doctors">All Doctors</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<!-- /Sidebar -->
