@@ -105,7 +105,6 @@ exports.getAppointments = async (req, res, next) => {
     const appointments = await Appointment.find({});
     if (!appointments) return next(new Error("No Appointment found"));
     res.locals.appointments = appointments;
-    console.log(appointments);
     res.status(200);
     next();
   } catch (error) {
