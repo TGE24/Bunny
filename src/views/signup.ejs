@@ -1,94 +1,115 @@
-<% include partials/header %>
-<body class="auth-bg">
-	<div class="wrapper">
-		<!-- Page Content -->
-		<div id="content">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-6 auth-box">
-						<div class="proclinic-box-shadow">
-							<!-- Page Title -->
-							<h3 class="widget-title">Sign Up</h3>
-							<!-- /Page Title -->
+<!DOCTYPE html>
+<html lang="zxx">
 
-							<!-- Form -->
-							<form class="widget-form" action="/signup" method="POST">
-								<div class="form-group row">
-									<div class="col-sm-12">
-										<input type="text" placeholder="Fullname" name="name" class="form-control">
-									</div>
-								</div>
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TAGCODE');</script>
+    <!-- End Google Tag Manager -->
+    <title>Proclinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- External CSS libraries -->
+    <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/fonts/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
 
-								<div class="form-group row">
-									<div class="col-sm-12">
-										<input type="email" placeholder="Email" name="email" class="form-control">
-									</div>
-								</div>
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon" >
 
-								<div class="form-group row">
-									<div class="col-sm-12">
-										<input type="text" placeholder="Phone Number" name="phone" class="form-control">
-									</div>
-								</div>
-								
-								<div class="form-group row">
-									<div class="col-sm-12">
-										<input type="date" placeholder="Date of Birth" name="dob" class="form-control">
-									</div>
-								</div>
+    <!-- Google fonts -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPoppins:400,500,700,800,900%7CRoboto:100,300,400,400i,500,700">
 
-								<div class="form-group row">
-									<div class="col-sm-12">
-									<select name="gender" class="form-control" id="gender">
-										<option value="male">Male</option>
+    <!-- Custom Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="/assets/css/skins/default.css">
+
+</head>
+<body id="top">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Login 16 start -->
+<div class="login-16">
+    <div class="container">
+        <div class="row login-box">
+            <div class="col-lg-5 col-md-12 bg-img none-992 col-pad-0 align-self-center">
+                <div class="info">
+                    <div class="logo clearfix">
+                        <a href="/">
+                            <img src="/assets/img/logos/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="btn-section clearfix">
+                        <a href="/" class="link-btn active btn-1">Login</a>
+                        <div class="clearfix"></div>
+                        <a href="/signup" class="link-btn btn-1 default-bg">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 bg-color-15 align-self-center bg-color-8">
+                <div class="form-section">
+                    <div class="logo-2 clearfix">
+                        <a href="/">
+                            <img src="assets/img/logos/logo-2.png" alt="logo">
+                        </a>
+                    </div>
+                    <h3>Create an account</h3>
+                    <div class="login-inner-form">
+                        <form action="/signup" method="POST">
+                            <div class="form-group form-box">
+                                <input type="text" name="name" class="input-text" placeholder="Full Name">
+                                <i class="flaticon-user"></i>
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="email" name="email" class="input-text" placeholder="Email Address">
+                                <i class="flaticon-mail-2"></i>
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="date" name="dob" class="input-text" placeholder="Date of Birth">
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="phone" name="phone" class="input-text" placeholder="Phone Number">
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="address" name="address" class="input-text" placeholder="Enter your address">
+                                <i class="flaticon-mail-2"></i>
+                            </div>
+                            <div class="form-group form-box">
+                                <select name="gender" class="form-control">
+                                    <option value="male">Male</option>
 										<option value="female">Female</option>
 										<option value="other">Other</option>
-									</select>
-								</div>
-								</div>
+                                </select>
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="password" name="Password" class="input-text" placeholder="Password">
+                                <i class="flaticon-password"></i>
+                            </div>
+                            
+                            <div class="form-group mb-0">
+                                <button type="submit" class="btn-md btn-theme btn-block">Register</button>
+                            </div>
+                            <p class="text">Already a member?<a href="/"> Login here</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Login 16 end -->
 
-								<div class="form-group row">
-									<div class="col-sm-12">
-									<textarea name="address" placeholder="Address" class="form-control" id="patient-address" rows="3"></textarea>
-									</div>
-								</div>
-
-								<div class="form-group row">
-									<div class="col-sm-12">
-										<input type="password" placeholder="Password" name="password" class="form-control" data-validation="strength" data-validation-strength="2"
-										 data-validation-has-keyup-event="true">
-									</div>
-								</div>
-
-								<!-- Button -->
-								<div class="button-btn-block">
-									<button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
-								</div>
-								<!-- /Button -->
-								<!-- Linsk -->
-								<div class="auth-footer-text">
-									<small>Alredy Sign Up,
-										<a href="/">Login</a> Here</small>
-								</div>
-								<!-- /Links -->
-							</form>
-							<!-- /Form -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /Page Content -->
-	</div>
-	<!-- Jquery Library-->
-	<script src="javascripts/jquery-3.2.1.min.js"></script>
-	<!-- Popper Library-->
-	<script src="javascripts/popper.min.js"></script>
-	<!-- Bootstrap Library-->
-	<script src="javascripts/bootstrap.min.js"></script>
-	<!-- Custom Script-->
-	<script src="javascripts/custom.js"></script>
+<!-- External JS libraries -->
+<script src="/assets/js/jquery-2.2.0.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- Custom JS Script -->
 </body>
-
 
 </html>

@@ -3,13 +3,14 @@
 <body>
 	<div class="wrapper">
         <!-- Sidebar -->
-        <% include partials/doctorside %>
+        <% include partials/patientside %>
 		<!-- /Sidebar -->
 		<!-- Page Content -->
 		<div id="content">
 			<!-- Top Navigation -->
 			<% include partials/navbar %> 
-			<!-- /Top Navigation -->
+            <!-- /Top Navigation -->
+            
 			<!-- Breadcrumb -->
 			<!-- Page Title -->
 			<div class="row no-margin-padding">
@@ -44,7 +45,6 @@
 									<thead>
 										<tr>
 											<th>Appointment ID</th>
-											<th>Patient ID</th>
 											<th>Token Number</th>
 											<th>Doctor Name</th>
 											<th>Problem</th>
@@ -55,9 +55,8 @@
 										<% for(let i=0; i<appointments.length; i++) {%>
 										<tr>
 											<td>AP<%= appointments[i].token%></td>
-											<td>PT<%= appointments[i].token%></td>
 											<td>TO<%= appointments[i].token%></td>
-											<td><%= user.name%></td>
+											<td><%= appointments[i].doctorId%></td>
 											<td><%= appointments[i].problem%></td>
 											<td>
 												<span class="badge badge-success"><%= appointments[i].status%></span>

@@ -112,6 +112,42 @@ exports.getAppointments = async (req, res, next) => {
   }
 };
 
+exports.getDoctorsAppointments = async (req, res, next) => {
+  try {
+    const id = { doctorId: req.session.user.name };
+    const appointments = await Appointment.find(id);
+    if (!appointments) return next(new Error("No Appointment found"));
+    res.locals.doctorAppointments = appointments;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPatientsAppointments = async (req, res, next) => {
+  try {
+    const id = { patientId: req.session.user._id };
+    const appointments = await Appointment.find(id);
+    if (!appointments) return next(new Error("No Appointment found"));
+    res.locals.patientAppointments = appointments;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  try {
+    delete res.locals.loggedInUser;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.addDoctor = async (req, res, next) => {
   try {
     const {

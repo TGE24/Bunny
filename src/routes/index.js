@@ -76,10 +76,12 @@ router.get(
 router.get(
   "/doctor/appointments",
   userController.allowIfLoggedin,
+  userController.getDoctorsAppointments,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("appointments", {
-      user: res.locals.loggedInUser
+      user: res.locals.loggedInUser,
+      appointments: res.locals.doctorAppointments
     });
   }
 );
@@ -114,6 +116,19 @@ router.get(
   (req, res, next) => {
     res.render("patient", {
       user: res.locals.loggedInUser
+    });
+  }
+);
+
+router.get(
+  "/patient/appointments",
+  userController.allowIfLoggedin,
+  userController.getPatientsAppointments,
+  userController.grantAccess("readAny", "profile"),
+  (req, res, next) => {
+    res.render("patientsAppointment", {
+      user: res.locals.loggedInUser,
+      appointments: res.locals.patientAppointments
     });
   }
 );
@@ -177,6 +192,10 @@ router.post("/login", userController.login, (req, res) => {
   } else {
     res.redirect("/admin");
   }
+});
+
+router.get("/logout", userController.logout, (req, res) => {
+  res.redirect("/");
 });
 
 // router.get(

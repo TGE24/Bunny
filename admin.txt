@@ -1,0 +1,11 @@
+{
+    "_id" : ObjectId("5e37462c87c2af582c2f4087"),
+    "role" : "admin",
+    "name" : "Admin",
+    "email" : "admin@mail.com",
+    "password" : "$2b$10$qdxGI6W2p9mXVpPYysjIcuigHrBXd.nruEcWJ6atlD4MjhnqLSe66",
+    "accessToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZTM3NDYyYzg3YzJhZjU4MmMyZjQwODciLCJpYXQiOjE1ODA4MTU1MDksImV4cCI6MTU4MDkwMTkwOX0.kFMYudqAWvosdTqegrVZaUfQwbtgwC9WvKcRw956kNo",
+    "createdAt" : ISODate("2020-02-02T22:59:08.997+01:00"),
+    "updatedAt" : ISODate("2020-02-04T12:25:09.252+01:00"),
+    "__v" : 0
+}

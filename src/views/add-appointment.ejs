@@ -61,7 +61,7 @@
 										<select name="doctorId" class="form-control" id="doctor">
                                             <% for(let i=0; i<doctors.length; i++) {%>
                                                 <option></option>
-											<option value="<%= doctors[i].id%>" style="text-transform: capitalize;"><%= doctors[i].name%> (<%= doctors[i].specialization%>)</option>
+											<option value="<%= doctors[i].name%>" style="text-transform: capitalize;"><%= doctors[i].name%> (<%= doctors[i].specialization%>)</option>
                                             <% } %>
 										</select>
 									</div>
