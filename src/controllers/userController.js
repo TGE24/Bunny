@@ -105,6 +105,12 @@ exports.getAppointments = async (req, res, next) => {
     const appointments = await Appointment.find({});
     if (!appointments) return next(new Error("No Appointment found"));
     res.locals.appointments = appointments;
+    const patientNames = [];
+    for (let i = 0; i < appointments.length; i++) {
+      const patients = await User.findById(appointments[i].patientId);
+      patientNames.push(patients.name);
+    }
+    res.locals.patientNames = patientNames;
     res.status(200);
     next();
   } catch (error) {
@@ -118,6 +124,27 @@ exports.getDoctorsAppointments = async (req, res, next) => {
     const appointments = await Appointment.find(id);
     if (!appointments) return next(new Error("No Appointment found"));
     res.locals.doctorAppointments = appointments;
+    const patientsArray = [];
+    for (let i = 0; i < appointments.length; i++) {
+      const patients = await User.findById(appointments[i].patientId);
+      patientsArray.push(patients.name);
+    }
+    res.locals.doctorsPatients = patientsArray;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPatientAppointmentDetail = async (req, res, next) => {
+  try {
+    const id = { token: req.params.appId };
+    const appointments = await Appointment.find(id);
+    if (!appointments) return next(new Error("No Appointment found"));
+    res.locals.patientAppointment = appointments;
+    const patient = await User.findById(appointments[0].patientId);
+    res.locals.patientCode = patient.code;
     res.status(200);
     next();
   } catch (error) {
@@ -252,6 +279,50 @@ exports.getUser = async (req, res, next) => {
     const user = await User.findById(userId);
     if (!user) return next(new Error("User does not exist"));
     res.locals.patient = user;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getPatientVisits = async (req, res, next) => {
+  try {
+    const id = { patientId: req.params.id };
+    const visits = await Appointment.find(id);
+    res.locals.patientVisits = visits;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.updateAppointment = async (req, res, next) => {
+  try {
+    const id = { token: req.params.appId };
+    const { diagnosis, prescription } = req.body;
+    const update = {
+      diagnosis,
+      prescription,
+      status: "completed"
+    };
+    await Appointment.findOneAndUpdate(id, update);
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.cancelAppointment = async (req, res, next) => {
+  try {
+    const id = { token: req.params.appId };
+    console.log(id);
+    const update = {
+      status: "cancelled"
+    };
+    await Appointment.findOneAndUpdate(id, update);
     res.status(200);
     next();
   } catch (error) {

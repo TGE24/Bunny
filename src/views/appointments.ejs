@@ -43,25 +43,29 @@
 								<table id="tableId" class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th>Appointment ID</th>
 											<th>Patient ID</th>
 											<th>Token Number</th>
-											<th>Doctor Name</th>
+											<th>Patient Name</th>
+											<th>Date</th>
+											<th>Time</th>
 											<th>Problem</th>
 											<th>Status</th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
 										<% for(let i=0; i<appointments.length; i++) {%>
 										<tr>
-											<td>AP<%= appointments[i].token%></td>
 											<td>PT<%= appointments[i].token%></td>
 											<td>TO<%= appointments[i].token%></td>
-											<td><%= user.name%></td>
+											<td><%= appointmentPatients[i]%></td>
+											<td><%= appointments[i].date%></td>
+											<td><%= appointments[i].time%></td>
 											<td><%= appointments[i].problem%></td>
 											<td>
-												<span class="badge badge-success"><%= appointments[i].status%></span>
+												<%- appointments[i].status === "cancelled" ? `<span class="badge badge-danger">Cancelled</span>` : appointments[i].status === "completed" ? `<span class="badge badge-success">Completed</span>`: `<span class="badge badge-warning">pending</span>` %>
 											</td>
+											<td><a href="/doctor/appointment/<%= appointments[i].token%>"><%- appointments[i].status === "cancelled" ? `<button type="button" class="btn btn-outline-success btn-sm disabled">Attend to</button>`: `<button type="button" class="btn btn-outline-success btn-sm">Attend to</button>` %></a></td>
                                         </tr>
                                         <% } %>
 									</tbody>

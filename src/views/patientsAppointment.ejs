@@ -49,6 +49,7 @@
 											<th>Doctor Name</th>
 											<th>Problem</th>
 											<th>Status</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -59,7 +60,10 @@
 											<td><%= appointments[i].doctorId%></td>
 											<td><%= appointments[i].problem%></td>
 											<td>
-												<span class="badge badge-success"><%= appointments[i].status%></span>
+												<%- appointments[i].status === "cancelled" ? `<span class="badge badge-danger">Cancelled</span>` : appointments[i].status === "completed" ? `<span class="badge badge-success">Completed</span>`: `<span class="badge badge-warning">pending</span>` %>
+											</td>
+											<td><a href="/cancelAppointment/<%= appointments[i].token%>"><%- appointments[i].status === "cancelled" ? `<button type="button" class="btn btn-outline-danger btn-sm" disabled >Cancel</button>`: `<button type="button" class="btn btn-outline-danger btn-sm">Cancel</button>` %></a>
+												<a href="/patient/<%= user.id%>/appointments/<%= appointments[i].token%>"><%- appointments[i].status === "cancelled" ? `<button type="button" class="btn btn-outline-success btn-sm" disabled >View Details</button>`: `<button type="button" class="btn btn-outline-success btn-sm">View Details</button>` %></a>
 											</td>
                                         </tr>
                                         <% } %>

@@ -18,10 +18,14 @@
       </a>
       <ul class="collapse list-unstyled" id="nav-appointment">
         <li>
-          <a href="/patient/add-appointment">Add Appointment</a>
+          <a href="/patient/<%= user.id %>/add-appointment"
+            >Add Appointment</a
+          >
         </li>
         <li>
-          <a href="/patient/appointments">All Appointments</a>
+          <a href="/patient/<%= user.id %>/appointments"
+            >All Appointments</a
+          >
         </li>
       </ul>
     </li>

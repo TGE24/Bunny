@@ -1,0 +1,131 @@
+<% include partials/header %>
+
+<body>
+	<div class="wrapper">
+		<!-- Sidebar -->
+		<% include partials/patientside %>
+		<!-- /Sidebar -->
+		<!-- Page Content -->
+		<div id="content">
+			<!-- Top Navigation -->
+            <% include partials/navbar %>
+			<!-- /Top Navigation -->
+			<!-- Breadcrumb -->
+			<!-- Page Title -->
+			<div class="row no-margin-padding">
+				<div class="col-md-6">
+					<h3 class="block-title">Appointment Details</h3>
+				</div>
+				<div class="col-md-6">
+					<ol class="breadcrumb">						
+						<li class="breadcrumb-item">
+							<a href="/doctor">
+								<span class="ti-home"></span>
+							</a>
+                        </li>
+                        <li class="breadcrumb-item">Appointments</li>
+						<li class="breadcrumb-item active">Appointment Details</li>
+					</ol>
+				</div>
+			</div>
+			<!-- /Page Title -->
+
+			<!-- /Breadcrumb -->
+			<!-- Main Content -->
+			<div class="container-fluid">
+
+                <div class="row">
+                    <!-- Widget Item -->
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                        <% for(let i=0; i<details.length; i++) {%> 
+                                        <tr>
+                                            <td><strong>Patient ID</strong></td>
+                                            <td>PT<%= details[i].token%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Department</strong></td>
+                                            <td><%= details[i].department%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Appointment Date</strong></td>
+                                            <td><%= details[i].date%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Time Slot </strong></td>
+                                            <td><%= details[i].time%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Token Number </strong></td>
+                                            <td><%= details[i].token%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Problem</strong></td>
+                                            <td><%= details[i].problem%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Diagnosis</strong></td>
+                                            <td><%= details[i].diagnosis%></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Prescription</strong></td>
+                                            <td><%= details[i].prescription%></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <!--Export links-->
+                             <nav aria-label="Page navigation example">
+                                <ul class="pagination export-pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-printer"></span> print</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <!-- /Export links-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Widget Item -->
+                </div>
+			</div>
+			<!-- /Main Content -->
+		</div>
+		<!-- /Page Content -->
+	</div>
+	<!-- Back to Top -->
+	<a id="back-to-top" href="#" class="back-to-top">
+		<span class="ti-angle-up"></span>
+	</a>
+	<!-- /Back to Top -->
+	<!-- Jquery Library-->
+	<script src="/javascripts/jquery-3.2.1.min.js"></script>
+	<!-- Popper Library-->
+	<script src="/javascripts/popper.min.js"></script>
+	<!-- Bootstrap Library-->
+    <script src="/javascripts/bootstrap.min.js"></script>
+    
+    <!-- Datatable  -->
+	<script src="/datatable/jquery.dataTables.min.js"></script>
+	<script src="/datatable/dataTables.bootstrap4.min.js"></script>
+    
+	<!-- Custom Script-->
+	<script src="/javascripts/custom.js"></script>
+
+</body>
+
+
+<!-- Mirrored from www.konnectplugins.com/proclinic/Vertical/about-appointment.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 20 Dec 2019 10:59:45 GMT -->
+</html>

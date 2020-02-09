@@ -32,51 +32,7 @@
 			<!-- Main Content -->
 			<div class="container-fluid home">
 
-
-				<div class="row">
-					<!-- Widget Item -->
-					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow color-red">
-							<div class="widget-left">
-								<span class="ti-user"></span>
-							</div>
-							<div class="widget-right">
-								<h4 class="wiget-title">Patients</h4>
-								<span class="numeric color-red">348</span>
-								<p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p>
-							</div>
-						</div>
-					</div>
-					<!-- /Widget Item -->
-					<!-- Widget Item -->
-					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow color-green">
-							<div class="widget-left">
-								<span class="ti-bar-chart"></span>
-							</div>
-							<div class="widget-right">
-								<h4 class="wiget-title">Appointments</h4>
-								<span class="numeric color-green">1585</span>
-								<p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p>
-							</div>
-						</div>
-					</div>
-					<!-- /Widget Item -->
-					<!-- Widget Item -->
-					<div class="col-md-4">
-						<div class="widget-area proclinic-box-shadow color-yellow">
-							<div class="widget-left">
-								<span class="ti-money"></span>
-							</div>
-							<div class="widget-right">
-								<h4 class="wiget-title">Total Revenue</h4>
-								<span class="numeric color-yellow">$7300</span>
-								<p class="inc-dec mb-0"><span class="ti-angle-up"></span> +10% Increased</p>
-							</div>
-						</div>
-					</div>
-					<!-- /Widget Item -->
-				</div>
+				<% include partials/stats %>
 
 				<div class="row">
 					<!-- Widget Item -->
@@ -96,66 +52,18 @@
 										</tr>
 									</thead>
 									<tbody>
+										<% for(let i = 0; i<appointments.length; i++) {%>
 										<tr>
-											<td>Rajesh</td>
-											<td>Manoj Kumar</td>
-											<td>Dental</td>
-											<td>12-10-2018</td>
-											<td>12:10PM</td>
+											<td><%=patientName[i] %></td>
+											<td><%=appointments[i].doctorId %></td>
+											<td><%=appointments[i].problem %></td>
+											<td><%=appointments[i].date %></td>
+											<td><%=appointments[i].time %></td>
 											<td>
-												<span class="badge badge-success">Completed</span>
+												<%- appointments[i].status === "cancelled" ? `<span class="badge badge-danger">Cancelled</span>` : appointments[i].status === "completed" ? `<span class="badge badge-success">Completed</span>`: `<span class="badge badge-warning">pending</span>` %>
 											</td>
 										</tr>
-										<tr>
-											<td>Riya</td>
-											<td>Daniel </td>
-											<td>Ortho</td>
-											<td>12-10-2018</td>
-											<td>1:10PM</td>
-											<td>
-												<span class="badge badge-warning">Pending</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Siri</td>
-											<td>Daniel </td>
-											<td>Ortho</td>
-											<td>12-10-2018</td>
-											<td>1:30PM</td>
-											<td>
-												<span class="badge badge-danger">Cancelled</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Rajesh</td>
-											<td>Manoj Kumar</td>
-											<td>Dental</td>
-											<td>12-10-2018</td>
-											<td>12:10PM</td>
-											<td>
-												<span class="badge badge-success">Completed</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Riya</td>
-											<td>Daniel </td>
-											<td>Ortho</td>
-											<td>12-10-2018</td>
-											<td>1:10PM</td>
-											<td>
-												<span class="badge badge-warning">Pending</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Siri</td>
-											<td>Daniel </td>
-											<td>Ortho</td>
-											<td>12-10-2018</td>
-											<td>1:30PM</td>
-											<td>
-												<span class="badge badge-danger">Cancelled</span>
-											</td>
-										</tr>
+										<% } %>
 									</tbody>
 								</table>
 							</div>
@@ -178,34 +86,15 @@
 										</tr>
 									</thead>
 									<tbody>
+										<% for(let i = 0; i<doctors.length; i++) {%>
 										<tr>
-											<td>Rajesh</td>
-											<td>Dental</td>
+											<td><%=doctors[i].name %></td>
+											<td><%=doctors[i].specialization %></td>
 											<td>
 												<span class="badge badge-success">Available</span>
 											</td>
 										</tr>
-										<tr>
-											<td>Riya</td>
-											<td>Ortho</td>
-											<td>
-												<span class="badge badge-warning">On Leave</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Siri</td>
-											<td>Skin</td>
-											<td>
-												<span class="badge badge-danger">Not Available</span>
-											</td>
-										</tr>
-										<tr>
-											<td>Rajesh</td>
-											<td>Dental</td>
-											<td>
-												<span class="badge badge-success">Available</span>
-											</td>
-										</tr>
+										<% } %>
 									</tbody>
 								</table>
 							</div>

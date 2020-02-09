@@ -5,6 +5,5 @@
 /build
 
 # misc
-/public
 /src/views/Vertical
 .env

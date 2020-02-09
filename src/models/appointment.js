@@ -36,6 +36,14 @@ const AppointmentSchema = new Schema(
     token: {
       type: String,
       trim: true
+    },
+    diagnosis: {
+      type: String,
+      trim: true
+    },
+    prescription: {
+      type: String,
+      trim: true
     }
   },
   { timestamps: true }

@@ -10,27 +10,44 @@ router.get("/", function(req, res, next) {
 router.get(
   "/admin",
   userController.allowIfLoggedin,
+  userController.getPatients,
+  userController.getAppointments,
+  userController.getDoctors,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
-    res.render("admin", { user: res.locals.loggedInUser });
+    res.render("admin", {
+      user: res.locals.loggedInUser,
+      patients: res.locals.patients,
+      appointments: res.locals.appointments,
+      patientName: res.locals.patientNames,
+      doctors: res.locals.doctors
+    });
   }
 );
 
 router.get(
   "/admin/add-doctor",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
-    res.render("add-doctor", { user: res.locals.loggedInUser });
+    res.render("add-doctor", {
+      user: res.locals.loggedInUser,
+      patients: res.locals.patients
+    });
   }
 );
 
 router.get(
-  "/doctor",
+  "/doctor/patients",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
-    res.render("doctor", { user: res.locals.loggedInUser });
+    res.render("patients", {
+      user: res.locals.loggedInUser,
+      patients: res.locals.patients
+    });
   }
 );
 
@@ -61,27 +78,66 @@ router.get(
 );
 
 router.get(
-  "/doctor/patients",
+  "/doctor/appointment/:appId",
   userController.allowIfLoggedin,
-  userController.getPatients,
+  userController.getPatientAppointmentDetail,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
-    res.render("patients", {
+    res.render("appointmentDetails", {
       user: res.locals.loggedInUser,
-      patients: res.locals.patients
+      details: res.locals.patientAppointment,
+      code: res.locals.patientCode
     });
+  }
+);
+
+router.get(
+  "/patient/:id/appointments/:appId",
+  userController.allowIfLoggedin,
+  userController.getPatientAppointmentDetail,
+  userController.grantAccess("readAny", "profile"),
+  (req, res, next) => {
+    res.render("pAppointmentDetails", {
+      user: res.locals.loggedInUser,
+      details: res.locals.patientAppointment
+    });
+  }
+);
+
+router.post(
+  "/updateAppointment/:appId",
+  userController.allowIfLoggedin,
+  userController.updateAppointment,
+  userController.grantAccess("readAny", "profile"),
+  (req, res, next) => {
+    res.redirect("/doctor/appointments");
+  }
+);
+
+router.get(
+  "/cancelAppointment/:appId",
+  userController.allowIfLoggedin,
+  userController.cancelAppointment,
+  userController.grantAccess("updateAny", "profile"),
+  (req, res, next) => {
+    res.redirect(
+      "/patient/" + res.locals.loggedInUser.id + "/appointments"
+    );
   }
 );
 
 router.get(
   "/doctor/appointments",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.getDoctorsAppointments,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("appointments", {
       user: res.locals.loggedInUser,
-      appointments: res.locals.doctorAppointments
+      patients: res.locals.patients,
+      appointments: res.locals.doctorAppointments,
+      appointmentPatients: res.locals.doctorsPatients
     });
   }
 );
@@ -89,10 +145,12 @@ router.get(
 router.get(
   "/admin/add-patient",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("add-patient", {
-      user: res.locals.loggedInUser
+      user: res.locals.loggedInUser,
+      patients: res.locals.patients
     });
   }
 );
@@ -101,46 +159,56 @@ router.get(
   "/doctor/patient/:id",
   userController.allowIfLoggedin,
   userController.getUser,
+  userController.getPatientVisits,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("patientdetails", {
       user: res.locals.loggedInUser,
-      patient: res.locals.patient
+      visits: res.locals.patientVisits
     });
   }
 );
 
 router.get(
-  "/patient",
+  "/patient/:id",
   userController.allowIfLoggedin,
+  userController.getPatients,
+  userController.getPatientVisits,
+  userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("patient", {
-      user: res.locals.loggedInUser
+      user: res.locals.loggedInUser,
+      patients: res.locals.patients,
+      visits: res.locals.patientVisits
     });
   }
 );
 
 router.get(
-  "/patient/appointments",
+  "/patient/:id/appointments",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.getPatientsAppointments,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
     res.render("patientsAppointment", {
       user: res.locals.loggedInUser,
+      patients: res.locals.patients,
       appointments: res.locals.patientAppointments
     });
   }
 );
 
 router.get(
-  "/patient/add-appointment",
+  "/patient/:id/add-appointment",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.getDoctors,
   userController.getAppointments,
   (req, res, next) => {
     res.render("add-appointment", {
       user: res.locals.loggedInUser,
+      patients: res.locals.patients,
       doctors: res.locals.doctors,
       appointments: res.locals.appointments
     });
@@ -152,7 +220,9 @@ router.post(
   userController.allowIfLoggedin,
   userController.addAppointment,
   (req, res, next) => {
-    res.redirect("/patient/add-appointment");
+    res.redirect(
+      "/patient/" + res.locals.loggedInUser.id + "/appointments"
+    );
   }
 );
 
@@ -177,6 +247,7 @@ router.post("/signup", userController.signup, (req, res, next) => {
 router.post(
   "/addPatient",
   userController.allowIfLoggedin,
+  userController.getPatients,
   userController.signup,
   userController.grantAccess("readAny", "profile"),
   (req, res, next) => {
@@ -186,9 +257,9 @@ router.post(
 
 router.post("/login", userController.login, (req, res) => {
   if (req.session.user.role === "patient") {
-    res.redirect("/patient");
+    res.redirect("/patient/" + req.session.user.id);
   } else if (req.session.user.role === "doctor") {
-    res.redirect("/doctor");
+    res.redirect("/doctor/patients");
   } else {
     res.redirect("/admin");
   }
@@ -197,32 +268,5 @@ router.post("/login", userController.login, (req, res) => {
 router.get("/logout", userController.logout, (req, res) => {
   res.redirect("/");
 });
-
-// router.get(
-//   "/user/:userId",
-//   userController.allowIfLoggedin,
-//   userController.getUser
-// );
-
-// router.get(
-//   "/users",
-//   userController.allowIfLoggedin,
-//   userController.grantAccess("readAny", "profile"),
-//   userController.getUsers
-// );
-
-// router.put(
-//   "/user/:userId",
-//   userController.allowIfLoggedin,
-//   userController.grantAccess("updateAny", "profile"),
-//   userController.updateUser
-// );
-
-// router.delete(
-//   "/user/:userId",
-//   userController.allowIfLoggedin,
-//   userController.grantAccess("deleteAny", "profile"),
-//   userController.deleteUser
-// );
 
 module.exports = router;

@@ -5,6 +5,7 @@ exports.roles = (function() {
   ac.grant("patient")
     .readAny("profile")
     .readOwn("profile")
+    .updateAny("profile")
     .updateOwn("profile");
 
   ac.grant("doctor")
