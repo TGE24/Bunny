@@ -36,7 +36,7 @@ app.use(async (req, res, next) => {
     const accessToken = req.session.token;
     const { userId, exp } = await jwt.verify(
       accessToken,
-      jgu7657u6r76f76r7
+      "jgu7657u6r76f76r7"
     );
     // Check if token has expired
     if (exp < Date.now().valueOf() / 1000) {
