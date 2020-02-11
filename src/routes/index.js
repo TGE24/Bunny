@@ -170,6 +170,16 @@ router.get(
 );
 
 router.get(
+  "/patientdetails/:id",
+  userController.getPatientVisits,
+  (req, res, next) => {
+    res.render("qrview", {
+      visits: res.locals.patientVisits
+    });
+  }
+);
+
+router.get(
   "/patient/:id",
   userController.allowIfLoggedin,
   userController.getPatients,
