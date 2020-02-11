@@ -46,7 +46,7 @@ exports.signup = async (req, res, next) => {
     const id = newUser._id;
 
     const code = await generateQR(
-      "http://localhost:3000/doctor/patient/" + id
+      "https://g-proclinic.herokuapp.com//doctor/patient/" + id
     );
 
     newUser.code = code;
