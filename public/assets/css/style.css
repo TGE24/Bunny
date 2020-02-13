@@ -4776,7 +4776,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 /** Login 16 start **/
 .login-16{
-    background: rgba(0, 0, 0, 0.04) url(../img/bg-image-12.jpg) top left repeat;
+    background: rgba(0, 0, 0, 0.04) url(../img/back.jpg) top left repeat;
     background-size: cover;
     top: 0;
     width: 100%;

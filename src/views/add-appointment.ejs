@@ -59,8 +59,8 @@
 									<div class="form-group col-md-6">
 										<label for="doctor">Select Doctor</label>
 										<select name="doctorId" class="form-control" id="doctor">
+											<option></option>
                                             <% for(let i=0; i<doctors.length; i++) {%>
-                                                <option></option>
 											<option value="<%= doctors[i].name%>" style="text-transform: capitalize;"><%= doctors[i].name%> (<%= doctors[i].specialization%>)</option>
                                             <% } %>
 										</select>
