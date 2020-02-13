@@ -37,7 +37,7 @@
 
 				<div class="row">
 					<!-- Widget Item -->
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Patient Details</h3>
                             <img src="<%= patient.code%>" alt="Qr Code" />
@@ -71,37 +71,6 @@
                                         </tr>									
 									</tbody>
 								</table>
-							</div>
-						</div>
-					</div>
-                    <!-- /Widget Item -->
-                    <!-- Widget Item -->
-					<div class="col-md-6">
-						<div class="widget-area-2 proclinic-box-shadow">
-							<h3 class="widget-title">Patient Visits</h3>
-							<div class="table-responsive">
-								<table class="table table-bordered table-striped">
-									<thead>
-										<tr>										
-											<th>Doctor Name</th>
-											<th>Problem</th>
-											<th>Visit Date</th>
-											<th>Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<% for (let i=0; i<visits.length; i++) {%>
-										<tr>											
-											<td><%= visits[i].doctorId %></td>
-											<td><%= visits[i].problem %></td>
-											<td><%= visits[i].date %></td>
-											<td><%= visits[i].status %></td>
-										</tr>	
-										<% } %>								
-									</tbody>
-								</table>
-								
-								
 							</div>
 						</div>
 					</div>
